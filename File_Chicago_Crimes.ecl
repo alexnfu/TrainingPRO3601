@@ -12,15 +12,15 @@
 		BOOLEAN Domestic;
 		STRING Beat;
 		STRING District;
-		STRING Ward; //NUMBER
+		STRING Ward;
 		STRING CommunityArea;
 		STRING FBICode;
-		STRING XCoordinate;//
-		STRING YCoordinate;//
+		STRING XCoordinate;
+		STRING YCoordinate;
 		UNSIGNED Year;
-		STRING UpdatedOn;//
-		STRING Latitude;//
-		STRING Longitude;//
+		STRING UpdatedOn;
+		STRING Latitude;
+		STRING Longitude;
 		STRING Location;
 		END;
 	EXPORT File := DATASET('~class::intro::ahyynf::crimes_-_2001_to_present.csv',Layout,CSV(heading(1)));
