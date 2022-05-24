@@ -16,6 +16,6 @@
 			STRING2 	State;
 			STRING5 	ZipCode;
 	END;
-	EXPORT File := DATASET('~CLASS::intro::hmw::Persons', Layout,FLAT);
+	EXPORT File := DATASET('~class::ahyynf::intro::persons', Layout,FLAT);
 END;
 
