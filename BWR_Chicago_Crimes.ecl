@@ -2,27 +2,21 @@
 
 Crimes := $.File_Chicago_Crimes.File;
 
-// DateTimeGoodFormat := RECORD
-  // STRING datee:=CRImes.date[0..10];
-  // Crimes;
-// END;
+//////// TAREFA SEMANA 8 //////////
 
-MyOutRec := RECORD
+FullCrimesRec := RECORD
   UNSIGNED recid;
-  INTEGER onlydate;
-  INTEGER onlytime;
   Crimes;
 END;
-// mytable := TABLE(crimes,DateTimeGoodFormat);
-// output(mytable,named('test'));
-MyOutRec CatThem(Crimes Le, UNSIGNED Cnt) := TRANSFORM
+
+FullCrimesRec CatThem(Crimes Le, UNSIGNED Cnt) := TRANSFORM
   SELF.recid := cnt;
-  SELF.onlydate := STD.Date.FromStringToDate(Le.date[0..10],'%m/%d/%Y');
-  SELF.onlytime := STD.Date.TimeFromParts((INTEGER) Le.date[12..14],(INTEGER)Le.date[15..17],(INTEGER)Le.date[18..20]);
   SELF := Le;
 END;
+FullCrimesRec_File := PROJECT(Crimes, CatThem(LEFT,COUNTER)):PERSIST('~class::FullCrimesRec');
 
-CatRecs := PROJECT(Crimes, CatThem(LEFT,COUNTER));
-OUTPUT(CatRecs);
-OUTPUT(Crimes);
+OnlyCrimesRec_File := TABLE(FullCrimesRec_File, {recid,ID,CaseNumber,Date,IUCR,PrimaryType,Description,LocationDescription,Arrest,Domestic,Beat,Ward,FBICode,XCoordinate,YCoordinate,Year,UpdatedOn,Latitude,Longitude,Location}):PERSIST('~class::OnlyCrimesRec');
+OUTPUT(OnlyCrimesRec_File, NAMED('OnlyCrimesRec'));
 
+BCDRec_File := TABLE(FullCrimesRec_File,{recid,block,communityarea,district}):PERSIST('~class::BCDRec');
+OUTPUT(BCDRec_File, NAMED('BCDRec'));
